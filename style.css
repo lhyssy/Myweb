@@ -24,7 +24,7 @@ body {
     font-size: 1.5rem;
     font-weight: bold;
     text-decoration: none;
-    color: #333;
+    color: var(--nav-text);
 }
 
 .nav-links {
@@ -37,10 +37,11 @@ body {
 }
 
 .nav-links a {
+    color: var(--nav-text);
     text-decoration: none;
-    color: #333;
     position: relative;
     padding-bottom: 5px;
+    transition: color 0.3s ease;
 }
 
 /* 悬停下划线动画 */
@@ -51,7 +52,7 @@ body {
     left: 0;
     width: 0;
     height: 2px;
-    background-color: #333;
+    background-color: var(--link-color);
     transition: width 0.3s ease;
 }
 
@@ -77,7 +78,7 @@ body {
         position: absolute;
         top: 70px;
         left: 0;
-        background-color: #fff;
+        background-color: var(--nav-bg);
         flex-direction: column;
         padding: 1rem 0;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -237,6 +238,7 @@ body {
     transition: transform 0.3s ease;
     opacity: 0;
     transform: translateY(20px);
+    border: 1px solid var(--border);
 }
 
 .project-card.aos-animate {
@@ -245,7 +247,8 @@ body {
 }
 
 .project-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px var(--shadow);
 }
 
 .project-card img {
@@ -269,17 +272,18 @@ body {
 }
 
 .view-details {
-    background: #007bff;
+    background-color: var(--link-color);
     color: white;
     border: none;
     padding: 0.5rem 1rem;
     border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s ease;
 }
 
 .view-details:hover {
-    background: #0056b3;
+    background-color: #0056b3;
+    transform: translateY(-2px);
 }
 
 /* 模态框样式 */
@@ -392,7 +396,7 @@ body {
 
 .progress {
     height: 100%;
-    background: linear-gradient(90deg, #ff4b1f, #ff9068);
+    background: linear-gradient(90deg, var(--link-color), #00d2ff);
     border-radius: 5px;
     width: 100%;
     transform: scaleX(0);
@@ -421,16 +425,24 @@ body {
     --card-bg: #f8f9fa;
     --shadow: rgba(0,0,0,0.1);
     --border: #e0e0e0;
+    --link-color: #007bff;
+    --nav-text: #333333;
+    --secondary-text: #666666;
+    --hover-bg: #f0f0f0;
 }
 
 /* 暗色主题变量 */
 [data-theme="dark"] {
     --bg-color: #1a1a1a;
-    --text-color: #f0f0f0;
+    --text-color: #e0e0e0;
     --nav-bg: #2d2d2d;
     --card-bg: #333333;
-    --shadow: rgba(255,255,255,0.1);
+    --shadow: rgba(0,0,0,0.3);
     --border: #404040;
+    --link-color: #66b3ff;
+    --nav-text: #ffffff;
+    --secondary-text: #b0b0b0;
+    --hover-bg: #404040;
 }
 
 /* 应用主题变量 */
@@ -455,17 +467,18 @@ body {
 }
 
 #themeToggle {
-    background: none;
+    background-color: transparent;
     border: none;
-    color: var(--text-color);
+    color: var(--nav-text);
     cursor: pointer;
     font-size: 1.2rem;
-    padding: 0.5rem;
-    transition: transform 0.3s ease;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
 }
 
 #themeToggle:hover {
-    transform: scale(1.1);
+    background-color: var(--hover-bg);
 }
 
 /* 博客区域样式 */
@@ -495,6 +508,7 @@ body {
     margin-bottom: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 2px 4px var(--shadow);
+    border: 1px solid var(--border);
 }
 
 .blog-item h3 {
@@ -502,7 +516,7 @@ body {
 }
 
 .blog-date {
-    color: #666;
+    color: var(--secondary-text);
     font-size: 0.9rem;
     margin-bottom: 1rem;
 }
@@ -547,6 +561,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 4px var(--shadow);
     position: relative;
+    border: 1px solid var(--border);
 }
 
 .timeline-content::before {
@@ -556,7 +571,7 @@ body {
     top: 20px;
     width: 16px;
     height: 16px;
-    background-color: var(--bg-color);
+    background-color: var(--link-color);
     border: 2px solid var(--border);
     border-radius: 50%;
 }
@@ -652,21 +667,23 @@ body {
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: var(--link-color);
+    box-shadow: 0 0 0 2px rgba(102, 179, 255, 0.1);
 }
 
 .submit-btn {
-    background-color: #007bff;
+    background-color: var(--link-color);
     color: white;
     border: none;
     padding: 1rem 2rem;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .submit-btn:hover {
     background-color: #0056b3;
+    transform: translateY(-2px);
 }
 
 /* 页脚样式 */
@@ -713,7 +730,7 @@ body {
 }
 
 .tag {
-    background-color: var(--card-bg);
+    background-color: var(--hover-bg);
     color: var(--text-color);
     padding: 0.3rem 0.8rem;
     border-radius: 15px;
@@ -737,7 +754,7 @@ body {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: none;
+    border: 1px solid var(--border);
     cursor: pointer;
     display: none;
     align-items: center;
@@ -751,7 +768,7 @@ body {
 }
 
 .back-to-top:hover {
-    transform: translateY(-3px);
+    background-color: var(--hover-bg);
 }
 
 /* 响应式调整 */
@@ -781,4 +798,39 @@ html {
 section {
     padding: 4rem 0;
     scroll-margin-top: 70px; /* 导航栏的高度 */
+}
+
+/* 移动端菜单优化 */
+@media screen and (max-width: 768px) {
+    .nav-links {
+        background-color: var(--nav-bg);
+        border-top: 1px solid var(--border);
+    }
+    
+    .nav-links li {
+        border-bottom: 1px solid var(--border);
+    }
+    
+    .nav-links a:hover {
+        background-color: var(--hover-bg);
+    }
+}
+
+/* 滚动条样式优化 */
+[data-theme="dark"] {
+    scrollbar-color: var(--border) var(--bg-color);
+}
+
+[data-theme="dark"]::-webkit-scrollbar {
+    width: 12px;
+}
+
+[data-theme="dark"]::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+
+[data-theme="dark"]::-webkit-scrollbar-thumb {
+    background-color: var(--border);
+    border-radius: 6px;
+    border: 3px solid var(--bg-color);
 } 

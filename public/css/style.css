@@ -374,30 +374,27 @@ body {
 
 /* 技能进度条容器 */
 .skills-container {
-    padding: 2rem;
+    padding: 1.5rem;
     background: var(--card-bg);
-    border-radius: 15px;
-    box-shadow: 0 4px 12px var(--shadow);
+    border-radius: 10px;
     border: 1px solid var(--border);
 }
 
 .skill-bar {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .skill-info {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 0.8rem;
-    font-weight: 500;
-    color: var(--text-color);
+    margin-bottom: 0.5rem;
 }
 
 .progress-bar {
     position: relative;
     height: 8px;
-    background: var(--hover-bg);
-    border-radius: 10px;
+    background: #eee;
+    border-radius: 5px;
     overflow: hidden;
 }
 
@@ -405,30 +402,42 @@ body {
     position: absolute;
     height: 100%;
     width: 0;
-    background: linear-gradient(90deg, var(--link-color), #00d2ff);
-    border-radius: 10px;
-    transition: width 1.5s cubic-bezier(0.1, 0.5, 0.2, 1);
+    background: #007bff;
+    border-radius: 5px;
+    transition: width 1s ease;
 }
 
 .progress.animate {
     width: var(--progress-width);
 }
 
-/* 技能条悬停效果 */
-.skill-bar:hover .progress {
-    background: linear-gradient(90deg, #00d2ff, var(--link-color));
-}
-
 .percent {
-    color: var(--secondary-text);
     font-size: 0.9rem;
 }
 
-/* 响应式调整 */
-@media screen and (max-width: 768px) {
-    .skills-container {
-        padding: 0.5rem;
-    }
+/* 添加测试辅助样式 */
+.test-controls {
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.test-button {
+    padding: 0.5rem 1rem;
+    margin-right: 0.5rem;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.test-status {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    background: #f8f9fa;
+    border-radius: 3px;
 }
 
 /* 添加主题相关的CSS变量 */

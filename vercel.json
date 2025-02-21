@@ -16,8 +16,22 @@
             "dest": "src/app.js"
         },
         {
+            "src": "/js/(.*\\.js)",
+            "headers": {
+                "Content-Type": "text/javascript"
+            },
+            "dest": "/public/js/$1"
+        },
+        {
+            "src": "/css/(.*\\.css)",
+            "headers": {
+                "Content-Type": "text/css"
+            },
+            "dest": "/public/css/$1"
+        },
+        {
             "src": "/(.*)",
-            "dest": "public/$1"
+            "dest": "/public/$1"
         }
     ]
 } 

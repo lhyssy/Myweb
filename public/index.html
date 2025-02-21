@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>芥末章鱼 - CS学生 | 初入全栈&AI</title>
+    <meta name="description" content="芥末章鱼的个人网站，展示项目作品、技术博客和个人简历。">
+    
+    <!-- Open Graph 标签 -->
+    <meta property="og:title" content="芥末章鱼的个人网站">
+    <meta property="og:description" content="CS学生 | 初入全栈&AI">
+    <meta property="og:image" content="https://example.com/profile-image.jpg">
+    <meta property="og:url" content="https://example.com">
+    
+    <!-- Schema.org 标记 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "芥末章鱼",
+        "url": "https://example.com",
+        "image": "https://example.com/profile-image.jpg",
+        "description": "CS学生，初入全栈&AI",
+        "sameAs": [
+            "https://github.com/username",
+            "https://linkedin.com/in/username"
+        ]
+    }
+    </script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="#">芥末章鱼</a>
+        </div>
+        
+        <div class="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <div class="theme-switch">
+            <button id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#home">首页</a></li>
+            <li><a href="#projects">项目</a></li>
+            <li><a href="#blog">博客</a></li>
+            <li><a href="#contact">联系</a></li>
+        </ul>
+    </nav>
+
+    <main class="container" id="home">
+        <!-- 顶部标题区 -->
+        <header class="header-section">
+            <h1>芥末章鱼</h1>
+            <p class="subtitle">CS学生 |初入全栈&AI</p>
+        </header>
+
+        <!-- 个人信息网格布局 -->
+        <div class="profile-grid">
+            <!-- 左侧：头像和联系方式 -->
+            <div class="profile-left">
+                <img src="images/avatar.jpg" alt="芥末章鱼的头像" class="profile-image">
+                <div class="contact-info">
+                    <h2>联系方式</h2>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> email@example.com</li>
+                        <li><i class="fab fa-github"></i> github.com/username</li>
+                        <li><i class="fab fa-linkedin"></i> linkedin.com/in/username</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 右侧：技能进度条 -->
+            <div class="profile-right">
+                <h2>技能专长</h2>
+                <div class="skills-container">
+                    <div class="skill-bar js-version">
+                        <div class="skill-info">
+                            <span>Python</span>
+                            <span class="percent">90%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" data-target="90"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-bar js-version">
+                        <div class="skill-info">
+                            <span>JavaScript</span>
+                            <span class="percent">85%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" data-target="85"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-bar js-version">
+                        <div class="skill-info">
+                            <span>React</span>
+                            <span class="percent">80%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" data-target="80"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-bar js-version">
+                        <div class="skill-info">
+                            <span>Node.js</span>
+                            <span class="percent">75%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" data-target="75"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-bar js-version">
+                        <div class="skill-info">
+                            <span>SQL</span>
+                            <span class="percent">85%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" data-target="85"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 项目展示区 -->
+    <section class="projects-section" id="projects">
+        <div class="container">
+            <h2 class="section-title">项目展示</h2>
+            <div class="projects-grid">
+                <!-- 项目卡片 -->
+                <div class="project-card" data-aos="fade-up">
+                    <img src="https://via.placeholder.com/300x200" alt="项目1" data-src="https://via.placeholder.com/800x400">
+                    <div class="project-content">
+                        <h3>智能聊天机器人</h3>
+                        <p>基于深度学习的智能对话系统，支持多轮对话和情感分析</p>
+                        <button class="view-details">查看详情</button>
+                    </div>
+                </div>
+
+                <div class="project-card" data-aos="fade-up">
+                    <img src="https://via.placeholder.com/300x200" alt="项目2" data-src="https://via.placeholder.com/800x400">
+                    <div class="project-content">
+                        <h3>在线协作平台</h3>
+                        <p>实时多人协作的Web应用，支持文档编辑和版本控制</p>
+                        <button class="view-details">查看详情</button>
+                    </div>
+                </div>
+
+                <div class="project-card" data-aos="fade-up">
+                    <img src="https://via.placeholder.com/300x200" alt="项目3" data-src="https://via.placeholder.com/800x400">
+                    <div class="project-content">
+                        <h3>数据可视化面板</h3>
+                        <p>交互式数据分析工具，支持多维度数据展示和实时更新</p>
+                        <button class="view-details">查看详情</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 添加博客文章区域 -->
+    <section class="blog-section" id="blog">
+        <div class="container">
+            <h2 class="section-title">博客文章</h2>
+            <div class="blog-controls">
+                <div class="blog-search">
+                    <input type="text" id="searchInput" placeholder="搜索文章...">
+                </div>
+                <div class="blog-import">
+                    <input type="text" id="blogUrlInput" placeholder="粘贴文章链接...">
+                    <button id="importBlog" class="import-btn">
+                        <i class="fas fa-plus"></i> 导入文章
+                    </button>
+                </div>
+            </div>
+            <div class="blog-list" id="blogList">
+                <!-- 文章将通过JavaScript动态插入 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 添加教育经历区域 -->
+    <section class="education-section" id="education">
+        <div class="container">
+            <h2 class="section-title">教育经历</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">
+                        <h3>2023-2027</h3>
+                        <p>武汉大学</p>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>计算机科学与技术</h4>
+                        <p>GPA: 3.8/4.0</p>
+                        <ul>
+                            <li>担任学生会外联部职委</li>
+                            <li>担任计算机七班班长</li>
+                            <li>参与腾讯TDesign、混元等多个开源项目开发</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 更多教育经历... -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 在education-section后，modal前添加联系表单部分 -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2 class="section-title">联系我</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>联系方式</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> email@example.com</li>
+                        <li><i class="fas fa-phone"></i> +86 123 4567 8900</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 武汉市武昌区珞珈山</li>
+                    </ul>
+                    <div class="social-links">
+                        <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">姓名</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">邮箱</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">留言</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">发送消息</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- 添加页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>关于我</h3>
+                    <p>热爱编程、热爱开源的CS学生，致力于探索AI与全栈开发的无限可能。</p>
+                </div>
+                <div class="footer-section">
+                    <h3>快速链接</h3>
+                    <ul>
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#projects">项目</a></li>
+                        <li><a href="#blog">博客</a></li>
+                        <li><a href="#contact">联系</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>技术栈</h3>
+                    <div class="tech-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">React</span>
+                        <span class="tag">Node.js</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 芥末章鱼. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 添加返回顶部按钮 -->
+    <button id="backToTop" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- 模态框 -->
+    <div class="modal" id="projectModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <h2 id="modalTitle"></h2>
+                <img id="modalImage" src="" alt="项目详情">
+                <div class="project-details">
+                    <div class="tech-stack">
+                        <h3>技术栈</h3>
+                        <ul id="modalTechStack"></ul>
+                    </div>
+                    <div class="achievements">
+                        <h3>主要成果</h3>
+                        <ul id="modalAchievements"></ul>
+                    </div>
+                    <div class="project-links">
+                        <h3>相关链接</h3>
+                        <div id="modalLinks"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html> 

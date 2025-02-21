@@ -18,6 +18,9 @@ body {
     padding: 1rem 2rem;
     background-color: var(--nav-bg);
     box-shadow: 0 2px 5px var(--shadow);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
 }
 
 .logo a {
@@ -371,42 +374,54 @@ body {
 
 /* 技能进度条容器 */
 .skills-container {
-    padding: 1rem;
+    padding: 1.5rem;
+    background: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px var(--shadow);
+    border: 1px solid var(--border);
 }
 
 .skill-bar {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .skill-info {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
     font-weight: 500;
-    color: #333;
+    color: var(--text-color);
 }
 
 .progress-bar {
     position: relative;
-    background: #f0f0f0;
-    height: 10px;
-    border-radius: 5px;
+    height: 8px;
+    background: var(--hover-bg);
+    border-radius: 10px;
     overflow: hidden;
 }
 
 .progress {
+    position: absolute;
     height: 100%;
+    width: 0;
     background: linear-gradient(90deg, var(--link-color), #00d2ff);
-    border-radius: 5px;
-    width: 100%;
-    transform: scaleX(0);
-    transform-origin: left;
-    will-change: transform;
-    transition: none;
+    border-radius: 10px;
+    transition: width 1.5s cubic-bezier(0.1, 0.5, 0.2, 1);
 }
 
-.progress.animated {
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+.progress.animate {
+    width: var(--progress-width);
+}
+
+/* 技能条悬停效果 */
+.skill-bar:hover .progress {
+    background: linear-gradient(90deg, #00d2ff, var(--link-color));
+}
+
+.percent {
+    color: var(--secondary-text);
+    font-size: 0.9rem;
 }
 
 /* 响应式调整 */
@@ -429,6 +444,8 @@ body {
     --nav-text: #333333;
     --secondary-text: #666666;
     --hover-bg: #f0f0f0;
+    --link-color-rgb: 0, 123, 255;
+    --nav-bg-rgb: 255, 255, 255;
 }
 
 /* 暗色主题变量 */
@@ -443,6 +460,8 @@ body {
     --nav-text: #ffffff;
     --secondary-text: #b0b0b0;
     --hover-bg: #404040;
+    --link-color-rgb: 102, 179, 255;
+    --nav-bg-rgb: 30, 30, 30;
 }
 
 /* 应用主题变量 */
@@ -1226,4 +1245,183 @@ body.menu-open {
         width: 100%;
         justify-content: space-between;
     }
+}
+
+/* 主题过渡动画 */
+.theme-transition {
+    transition: background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+/* 卡片悬停效果增强 */
+.project-card, .blog-item {
+    transform: translateY(0);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card:hover, .blog-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px var(--shadow);
+}
+
+/* 渐入动画 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.6s ease forwards;
+}
+
+/* 技能专长区域美化 */
+.skills-container {
+    background: var(--card-bg);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+.skill-bar {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2.5rem;
+}
+
+/* 按钮动效 */
+.button {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.button:hover::after {
+    width: 300%;
+    height: 300%;
+}
+
+/* 图片加载效果 */
+.lazy-image {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.lazy-image.loaded {
+    opacity: 1;
+}
+
+/* 滚动条美化 */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--link-color);
+}
+
+/* 标签悬停效果 */
+.tag {
+    transform: translateY(0);
+    transition: all 0.2s ease;
+}
+
+.tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px var(--shadow);
+}
+
+/* 输入框焦点效果 */
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--link-color);
+    box-shadow: 0 0 0 3px rgba(var(--link-color-rgb), 0.1);
+}
+
+/* 页面加载进度条 */
+.progress-bar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: transparent;
+    z-index: 9999;
+}
+
+.progress-bar-container .progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--link-color), #00d2ff);
+    width: 0;
+    transition: width 0.3s ease;
+}
+
+/* 响应式布局优化 */
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .profile-grid {
+        gap: 1.5rem;
+    }
+    
+    .skills-container {
+        padding: 1.5rem;
+    }
+    
+    .project-card, .blog-item {
+        margin-bottom: 1rem;
+    }
+}
+
+/* 加载动画 */
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.loading {
+    background: linear-gradient(
+        90deg,
+        var(--card-bg) 25%,
+        var(--border) 50%,
+        var(--card-bg) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
 } 

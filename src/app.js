@@ -6,6 +6,9 @@ import blogRoutes from './routes/blogRoutes.js';
 import projectRoutes from './routes/projectRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import commentRoutes from './routes/commentRoutes.js';
+import categoryRoutes from './routes/categoryRoutes.js';
+import tagRoutes from './routes/tagRoutes.js';
+import profileRoutes from './routes/profileRoutes.js';
 
 dotenv.config();
 
@@ -24,6 +27,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/blogs', blogRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/comments', commentRoutes);
+app.use('/api/categories', categoryRoutes);
+app.use('/api/tags', tagRoutes);
+app.use('/api/profile', profileRoutes);
 
 // 错误处理中间件
 app.use((err, req, res, next) => {

@@ -2,6 +2,7 @@ class SkillsManager {
     constructor() {
         this.skillBars = document.querySelectorAll('.progress-bar .progress');
         this.initSkills();
+        this.bindThemeChangeEvent();
     }
 
     initSkills() {
@@ -10,11 +11,11 @@ class SkillsManager {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     this.animateSkill(entry.target);
-                    observer.unobserve(entry.target);
                 }
             });
         }, {
-            threshold: 0.5
+            threshold: 0.5,
+            rootMargin: '0px'
         });
 
         // 观察所有技能条
@@ -35,23 +36,19 @@ class SkillsManager {
     resetAnimations() {
         this.skillBars.forEach(bar => {
             bar.classList.remove('animate');
+            void bar.offsetWidth; // 触发重排以重置动画
+            this.animateSkill(bar);
         });
     }
 
-    // 主题变化时重新应用动画
-    handleThemeChange() {
-        this.resetAnimations();
-        setTimeout(() => {
-            this.skillBars.forEach(bar => {
-                this.animateSkill(bar);
-            });
-        }, 100);
+    bindThemeChangeEvent() {
+        window.addEventListener('themechange', () => {
+            this.resetAnimations();
+        });
     }
 }
 
-export const skillsManager = new SkillsManager();
-
-// 监听主题变化
-window.addEventListener('themechange', () => {
-    skillsManager.handleThemeChange();
+// 初始化技能管理器
+document.addEventListener('DOMContentLoaded', () => {
+    new SkillsManager();
 }); 

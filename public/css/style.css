@@ -374,10 +374,10 @@ body {
 
 /* 技能进度条容器 */
 .skills-container {
-    padding: 1.5rem;
+    padding: 2rem;
     background: var(--card-bg);
-    border-radius: 10px;
-    box-shadow: 0 2px 8px var(--shadow);
+    border-radius: 15px;
+    box-shadow: 0 4px 12px var(--shadow);
     border: 1px solid var(--border);
 }
 

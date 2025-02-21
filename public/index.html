@@ -178,6 +178,17 @@
                 <div class="blog-search">
                     <input type="text" id="searchInput" placeholder="搜索文章...">
                 </div>
+                <div class="blog-filters">
+                    <select id="filterTags" class="filter-select">
+                        <option value="">所有标签</option>
+                    </select>
+                    <select id="sortSelect" class="filter-select">
+                        <option value="date">最新发布</option>
+                        <option value="views">最多阅读</option>
+                        <option value="likes">最多点赞</option>
+                        <option value="collections">最多收藏</option>
+                    </select>
+                </div>
                 <div class="blog-import">
                     <input type="text" id="blogUrlInput" placeholder="粘贴文章链接...">
                     <button id="importBlog" class="import-btn">

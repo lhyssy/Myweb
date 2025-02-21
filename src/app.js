@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import blogRoutes from './routes/blogRoutes.js';
 import projectRoutes from './routes/projectRoutes.js';
+import authRoutes from './routes/authRoutes.js';
+import commentRoutes from './routes/commentRoutes.js';
 
 dotenv.config();
 
@@ -18,8 +20,10 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // 路由
+app.use('/api/auth', authRoutes);
 app.use('/api/blogs', blogRoutes);
 app.use('/api/projects', projectRoutes);
+app.use('/api/comments', commentRoutes);
 
 // 错误处理中间件
 app.use((err, req, res, next) => {

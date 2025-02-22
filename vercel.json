@@ -2,34 +2,28 @@
     "version": 2,
     "builds": [
         {
-            "src": "src/server.js",
-            "use": "@vercel/node",
+            "src": "src/app.js",
+            "use": "@vercel/node"
+        },
+        {
+            "src": "client/package.json",
+            "use": "@vercel/static-build",
             "config": {
-                "includeFiles": ["src/**"]
+                "distDir": "build"
             }
         }
     ],
     "routes": [
         {
             "src": "/api/(.*)",
-            "dest": "src/server.js",
-            "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-            "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization",
-                "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS"
-            }
-        },
-        {
-            "src": "/health",
-            "dest": "src/server.js"
+            "dest": "src/app.js"
         },
         {
             "handle": "filesystem"
         },
         {
             "src": "/(.*)",
-            "dest": "src/server.js"
+            "dest": "src/app.js"
         }
     ],
     "env": {

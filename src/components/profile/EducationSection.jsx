@@ -141,7 +141,7 @@ const EducationSection = ({ education, onUpdate }) => {
                             )}
                         </div>
 
-                        <div>
+                        <div className="md:col-span-2">
                             <label className="block text-sm font-medium text-gray-700">
                                 专业领域
                             </label>
@@ -166,6 +166,8 @@ const EducationSection = ({ education, onUpdate }) => {
                                 type="number"
                                 value={formData.startYear}
                                 onChange={(e) => setFormData({ ...formData, startYear: parseInt(e.target.value) })}
+                                min="1900"
+                                max={new Date().getFullYear()}
                                 className={`mt-1 block w-full rounded-md shadow-sm sm:text-sm
                                     ${errors.startYear ? 'border-red-500' : 'border-gray-300'}
                                     focus:border-blue-500 focus:ring-blue-500`}
@@ -183,27 +185,30 @@ const EducationSection = ({ education, onUpdate }) => {
                                 type="number"
                                 value={formData.endYear}
                                 onChange={(e) => setFormData({ ...formData, endYear: parseInt(e.target.value) })}
+                                min={formData.startYear}
+                                max={new Date().getFullYear() + 10}
                                 disabled={formData.current}
                                 className={`mt-1 block w-full rounded-md shadow-sm sm:text-sm
                                     ${errors.endYear ? 'border-red-500' : 'border-gray-300'}
-                                    ${formData.current ? 'bg-gray-100' : ''}
-                                    focus:border-blue-500 focus:ring-blue-500`}
+                                    focus:border-blue-500 focus:ring-blue-500
+                                    ${formData.current ? 'bg-gray-100' : ''}`}
                             />
                             {errors.endYear && (
                                 <p className="mt-1 text-sm text-red-500">{errors.endYear}</p>
                             )}
                         </div>
 
-                        <div className="flex items-center">
-                            <input
-                                type="checkbox"
-                                id="current"
-                                checked={formData.current}
-                                onChange={(e) => setFormData({ ...formData, current: e.target.checked })}
-                                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                            />
-                            <label htmlFor="current" className="ml-2 block text-sm text-gray-700">
-                                目前在读
+                        <div className="md:col-span-2">
+                            <label className="flex items-center">
+                                <input
+                                    type="checkbox"
+                                    checked={formData.current}
+                                    onChange={(e) => setFormData({ ...formData, current: e.target.checked })}
+                                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                />
+                                <span className="ml-2 text-sm text-gray-600">
+                                    目前在读
+                                </span>
                             </label>
                         </div>
                     </div>
@@ -234,7 +239,7 @@ const EducationSection = ({ education, onUpdate }) => {
                     >
                         <div>
                             <h4 className="text-lg font-medium text-gray-900">{edu.school}</h4>
-                            <p className="text-gray-600">{edu.degree} · {edu.field}</p>
+                            <p className="text-gray-600">{edu.degree} - {edu.field}</p>
                             <p className="text-sm text-gray-500">
                                 {edu.startYear} - {edu.current ? '至今' : edu.endYear}
                             </p>

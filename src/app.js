@@ -9,6 +9,7 @@ import blogRoutes from './routes/blogRoutes.js';
 import commentRoutes from './routes/commentRoutes.js';
 import categoryRoutes from './routes/categoryRoutes.js';
 import tagRoutes from './routes/tagRoutes.js';
+import githubRoutes from './routes/githubRoutes.js';
 import cors from 'cors';
 import morgan from 'morgan';
 import compression from 'compression';
@@ -60,6 +61,7 @@ app.use('/api/blog', blogRoutes);
 app.use('/api/comments', commentRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/tags', tagRoutes);
+app.use('/api/github', githubRoutes);
 
 // 处理静态文件
 app.use(express.static('public'));

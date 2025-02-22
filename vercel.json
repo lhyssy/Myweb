@@ -4,13 +4,6 @@
         {
             "src": "src/app.js",
             "use": "@vercel/node"
-        },
-        {
-            "src": "client/package.json",
-            "use": "@vercel/static-build",
-            "config": {
-                "distDir": "build"
-            }
         }
     ],
     "routes": [
@@ -19,7 +12,8 @@
             "dest": "src/app.js"
         },
         {
-            "handle": "filesystem"
+            "src": "/(.*\\.(js|css|ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot))",
+            "dest": "public/$1"
         },
         {
             "src": "/(.*)",

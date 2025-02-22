@@ -11,7 +11,8 @@
     "start": "node dist/app.js",
     "clean": "rimraf dist",
     "test": "jest",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "vercel-build": "npm run build"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

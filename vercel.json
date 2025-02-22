@@ -4,13 +4,6 @@
         {
             "src": "src/app.js",
             "use": "@vercel/node"
-        },
-        {
-            "src": "client/package.json",
-            "use": "@vercel/static-build",
-            "config": {
-                "distDir": "build"
-            }
         }
     ],
     "routes": [
@@ -19,25 +12,12 @@
             "dest": "src/app.js"
         },
         {
-            "src": "/js/(.*\\.js)",
-            "headers": {
-                "Content-Type": "text/javascript"
-            },
-            "dest": "/public/js/$1"
-        },
-        {
-            "src": "/css/(.*\\.css)",
-            "headers": {
-                "Content-Type": "text/css"
-            },
-            "dest": "/public/css/$1"
-        },
-        {
             "src": "/(.*)",
-            "dest": "client/$1"
+            "dest": "src/app.js"
         }
     ],
     "env": {
-        "NODE_ENV": "production"
+        "NODE_ENV": "production",
+        "MONGODB_URI": "mongodb+srv://lhy200412063:zhaoli97822@first.vjoye.mongodb.net/?retryWrites=true&w=majority&appName=FIRST"
     }
 } 

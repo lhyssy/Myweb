@@ -33,8 +33,8 @@ const WorkSection = ({ work, onUpdate }) => {
         }
 
         if (!formData.current && formData.endDate) {
-            const endDate = new Date(formData.endDate);
             const startDate = new Date(formData.startDate);
+            const endDate = new Date(formData.endDate);
             if (endDate < startDate) {
                 newErrors.endDate = '结束日期必须晚于开始日期';
             }
@@ -174,7 +174,6 @@ const WorkSection = ({ work, onUpdate }) => {
                                 type="date"
                                 value={formData.startDate}
                                 onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
-                                max={new Date().toISOString().split('T')[0]}
                                 className={`mt-1 block w-full rounded-md shadow-sm sm:text-sm
                                     ${errors.startDate ? 'border-red-500' : 'border-gray-300'}
                                     focus:border-blue-500 focus:ring-blue-500`}
@@ -192,29 +191,27 @@ const WorkSection = ({ work, onUpdate }) => {
                                 type="date"
                                 value={formData.endDate}
                                 onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
-                                min={formData.startDate}
                                 disabled={formData.current}
                                 className={`mt-1 block w-full rounded-md shadow-sm sm:text-sm
                                     ${errors.endDate ? 'border-red-500' : 'border-gray-300'}
-                                    focus:border-blue-500 focus:ring-blue-500
-                                    ${formData.current ? 'bg-gray-100' : ''}`}
+                                    ${formData.current ? 'bg-gray-100' : ''}
+                                    focus:border-blue-500 focus:ring-blue-500`}
                             />
                             {errors.endDate && (
                                 <p className="mt-1 text-sm text-red-500">{errors.endDate}</p>
                             )}
                         </div>
 
-                        <div className="md:col-span-2">
-                            <label className="flex items-center">
-                                <input
-                                    type="checkbox"
-                                    checked={formData.current}
-                                    onChange={(e) => setFormData({ ...formData, current: e.target.checked })}
-                                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                                />
-                                <span className="ml-2 text-sm text-gray-600">
-                                    目前在职
-                                </span>
+                        <div className="flex items-center">
+                            <input
+                                type="checkbox"
+                                id="current"
+                                checked={formData.current}
+                                onChange={(e) => setFormData({ ...formData, current: e.target.checked })}
+                                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                            />
+                            <label htmlFor="current" className="ml-2 block text-sm text-gray-700">
+                                目前在职
                             </label>
                         </div>
                     </div>
@@ -247,8 +244,9 @@ const WorkSection = ({ work, onUpdate }) => {
                             <h4 className="text-lg font-medium text-gray-900">{workItem.company}</h4>
                             <p className="text-gray-600">{workItem.position}</p>
                             <p className="text-sm text-gray-500">
-                                {new Date(workItem.startDate).toLocaleDateString('zh-CN')} - 
-                                {workItem.current ? '至今' : new Date(workItem.endDate).toLocaleDateString('zh-CN')}
+                                {new Date(workItem.startDate).toLocaleDateString('zh-CN')} - {
+                                    workItem.current ? '至今' : new Date(workItem.endDate).toLocaleDateString('zh-CN')
+                                }
                             </p>
                             {workItem.description && (
                                 <p className="mt-2 text-gray-600">{workItem.description}</p>

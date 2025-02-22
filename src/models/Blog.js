@@ -6,44 +6,39 @@ const blogSchema = new mongoose.Schema({
         type: String,
         required: [true, '文章标题不能为空'],
         trim: true,
-        maxlength: [200, '标题不能超过200个字符']
+        maxlength: [100, '标题不能超过100个字符']
     },
     slug: {
         type: String,
         unique: true,
         lowercase: true
     },
+    summary: {
+        type: String,
+        required: [true, '文章摘要不能为空'],
+        maxlength: [300, '摘要不能超过300个字符']
+    },
     content: {
         type: String,
         required: [true, '文章内容不能为空']
     },
-    summary: {
+    category: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category',
+        required: [true, '请选择文章分类']
+    },
+    tags: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Tag'
+    }],
+    coverImage: {
         type: String,
-        required: [true, '文章摘要不能为空'],
-        maxlength: [500, '摘要不能超过500个字符']
+        default: 'default-blog-cover.jpg'
     },
     author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: [true, '请指定文章作者']
-    },
-    tags: [{
-        type: String,
-        trim: true
-    }],
-    category: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Category'
-    },
-    platform: {
-        type: String,
-        enum: ['CSDN', 'GitHub', 'Personal', 'Other'],
-        default: 'Personal'
-    },
-    originalUrl: {
-        type: String,
-        unique: true,
-        sparse: true
     },
     status: {
         type: String,
@@ -53,27 +48,46 @@ const blogSchema = new mongoose.Schema({
     publishedAt: {
         type: Date
     },
+    featured: {
+        type: Boolean,
+        default: false
+    },
     readTime: {
         type: Number,
-        min: 1,
-        default: 5
+        required: true,
+        min: [1, '阅读时间不能小于1分钟']
+    },
+    platform: {
+        type: String,
+        enum: ['CSDN', 'GitHub', 'Personal', 'Other'],
+        default: 'Personal'
+    },
+    originalUrl: {
+        type: String,
+        validate: {
+            validator: function(v) {
+                if (this.platform === 'Personal') return true;
+                return v && v.length > 0;
+            },
+            message: '对于非个人平台的文章，必须提供原文链接'
+        }
     },
     stats: {
-        views: {
-            type: Number,
-            default: 0
-        },
-        likes: {
-            type: Number,
-            default: 0
-        },
-        collections: {
-            type: Number,
-            default: 0
-        }
+        views: { type: Number, default: 0 },
+        likes: { type: Number, default: 0 },
+        comments: { type: Number, default: 0 },
+        shares: { type: Number, default: 0 }
+    },
+    seo: {
+        metaTitle: String,
+        metaDescription: String,
+        keywords: [String],
+        canonical: String
     }
 }, {
-    timestamps: true
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
 });
 
 // 索引
@@ -95,7 +109,6 @@ blogSchema.pre('save', function(next) {
     if (!this.isModified('title')) {
         return next();
     }
-    
     this.slug = slugify(this.title, {
         lower: true,
         strict: true,
@@ -104,10 +117,10 @@ blogSchema.pre('save', function(next) {
     next();
 });
 
-// 发布时自动设置发布时间
+// 发布文章时更新publishedAt
 blogSchema.pre('save', function(next) {
     if (this.isModified('status') && this.status === 'published' && !this.publishedAt) {
-        this.publishedAt = new Date();
+        this.publishedAt = Date.now();
     }
     next();
 });

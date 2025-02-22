@@ -13,11 +13,11 @@ export const configureProductionMiddleware = (app) => {
                 defaultSrc: ["'self'"],
                 scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
                 styleSrc: ["'self'", "'unsafe-inline'", 'https:'],
-                imgSrc: ["'self'", 'data:', 'https:', 'blob:'],
-                connectSrc: ["'self'", 'https://api.github.com', process.env.API_URL],
-                fontSrc: ["'self'", 'https:', 'data:'],
+                imgSrc: ["'self'", 'data:', 'https:'],
+                connectSrc: ["'self'", 'https://api.github.com'],
+                fontSrc: ["'self'", 'https:'],
                 objectSrc: ["'none'"],
-                mediaSrc: ["'self'", 'https:'],
+                mediaSrc: ["'self'"],
                 frameSrc: ["'none'"]
             }
         },
@@ -26,23 +26,13 @@ export const configureProductionMiddleware = (app) => {
 
     // 配置 CORS
     app.use(cors({
-        origin: process.env.CORS_ORIGIN || process.env.API_URL,
-        credentials: true,
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-        allowedHeaders: ['Content-Type', 'Authorization']
+        origin: process.env.CLIENT_URL || 'https://your-domain.vercel.app',
+        credentials: true
     }));
-
-    // 添加安全响应头
-    app.use((req, res, next) => {
-        res.setHeader('X-Content-Type-Options', 'nosniff');
-        res.setHeader('X-Frame-Options', 'DENY');
-        res.setHeader('X-XSS-Protection', '1; mode=block');
-        next();
-    });
 
     // 生产环境错误处理
     app.use((err, req, res, next) => {
-        console.error('生产环境错误:', err);
+        console.error(err.stack);
         res.status(500).json({
             status: 'error',
             message: '服务器内部错误'

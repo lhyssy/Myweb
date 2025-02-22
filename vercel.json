@@ -19,22 +19,11 @@
             "dest": "src/app.js"
         },
         {
-            "src": "/js/(.*\\.js)",
-            "headers": {
-                "Content-Type": "text/javascript"
-            },
-            "dest": "/public/js/$1"
-        },
-        {
-            "src": "/css/(.*\\.css)",
-            "headers": {
-                "Content-Type": "text/css"
-            },
-            "dest": "/public/css/$1"
+            "handle": "filesystem"
         },
         {
             "src": "/(.*)",
-            "dest": "client/$1"
+            "dest": "src/app.js"
         }
     ],
     "env": {

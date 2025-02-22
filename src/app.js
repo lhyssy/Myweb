@@ -23,9 +23,30 @@ dotenv.config();
 
 const app = express();
 
+// 健康检查路由
+app.get('/health', (req, res) => {
+    res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// 基础中间件
+app.use(express.json({ limit: '1mb' }));
+app.use(express.urlencoded({ extended: true, limit: '1mb' }));
+app.use(morgan('tiny'));
+app.use(compression());
+
+// CORS配置
+app.use(cors({
+    origin: process.env.CORS_ORIGIN || '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+}));
+
 // 安全中间件
-app.use(helmet());
-app.use(cors());
+app.use(helmet({
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false
+}));
 app.use(mongoSanitize());
 app.use(xss());
 app.use(hpp());
@@ -33,15 +54,10 @@ app.use(hpp());
 // 速率限制
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 100
+    max: 100,
+    message: { status: 'error', message: '请求过于频繁，请稍后再试' }
 });
 app.use('/api/', limiter);
-
-// 基础中间件
-app.use(morgan('dev'));
-app.use(compression());
-app.use(express.json({ limit: '10kb' }));
-app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
 // 数据库连接
 mongoose.connect(process.env.MONGODB_URI, {
@@ -49,22 +65,11 @@ mongoose.connect(process.env.MONGODB_URI, {
     useUnifiedTopology: true,
     serverSelectionTimeoutMS: 5000,
     socketTimeoutMS: 45000,
-    family: 4,
-    maxPoolSize: 10,
-    retryWrites: true,
-    retryReads: true
+    family: 4
 })
 .then(() => console.log('MongoDB 连接成功'))
 .catch((err) => {
-    console.error('MongoDB 连接失败:', {
-        message: err.message,
-        stack: err.stack,
-        code: err.code
-    });
-    // 在生产环境中，我们不希望服务器因为数据库连接失败而完全停止
-    if (process.env.NODE_ENV !== 'production') {
-        process.exit(1);
-    }
+    console.error('MongoDB 连接失败:', err.message);
 });
 
 // 监听数据库连接事件
@@ -99,51 +104,50 @@ app.use('/api/github', githubRoutes);
 app.use(express.static('public'));
 
 // 404 处理
-app.use((req, res, next) => {
-    if (req.path.startsWith('/api/')) {
-        return res.status(404).json({
-            status: 'error',
-            message: '请求的API端点不存在'
-        });
-    }
-    // 对于前端路由，返回index.html
-    res.sendFile('index.html', { root: 'public' });
+app.use((req, res) => {
+    res.status(404).json({
+        status: 'error',
+        message: '请求的资源不存在'
+    });
 });
 
 // 错误处理中间件
 app.use((err, req, res, next) => {
-    // 详细的错误日志
-    console.error('错误详情:', {
-        message: err.message,
-        stack: err.stack,
-        path: req.path,
-        method: req.method,
-        body: req.body,
-        query: req.query,
-        headers: req.headers
-    });
-    
-    const statusCode = err.statusCode || 500;
-    const message = err.message || '服务器内部错误';
-    
-    // 根据环境返回不同级别的错误信息
-    const errorResponse = {
-        status: 'error',
-        message,
-        code: err.code || 'INTERNAL_SERVER_ERROR'
-    };
+    console.error('错误:', err.message);
 
-    if (process.env.NODE_ENV === 'development') {
-        errorResponse.stack = err.stack;
-        errorResponse.details = err.details || {};
+    // 处理MongoDB错误
+    if (err.name === 'MongoError' || err.name === 'MongoServerError') {
+        return res.status(500).json({
+            status: 'error',
+            message: '数据库操作失败'
+        });
     }
 
-    res.status(statusCode).json(errorResponse);
+    // 处理验证错误
+    if (err.name === 'ValidationError') {
+        return res.status(400).json({
+            status: 'error',
+            message: '数据验证失败',
+            errors: Object.values(err.errors).map(e => e.message)
+        });
+    }
+
+    // 处理JWT错误
+    if (err.name === 'JsonWebTokenError') {
+        return res.status(401).json({
+            status: 'error',
+            message: '无效的认证令牌'
+        });
+    }
+
+    // 默认错误响应
+    res.status(err.status || 500).json({
+        status: 'error',
+        message: process.env.NODE_ENV === 'production' 
+            ? '服务器内部错误' 
+            : err.message
+    });
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`服务器运行在端口 ${PORT}`);
-});
-
+// 导出app而不是启动服务器
 export default app; 

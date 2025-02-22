@@ -3,7 +3,10 @@
     "builds": [
         {
             "src": "src/app.js",
-            "use": "@vercel/node"
+            "use": "@vercel/node",
+            "config": {
+                "maxLambdaSize": "50mb"
+            }
         },
         {
             "src": "client/package.json",
@@ -19,14 +22,17 @@
             "dest": "src/app.js"
         },
         {
-            "handle": "filesystem"
-        },
-        {
             "src": "/(.*)",
             "dest": "src/app.js"
         }
     ],
     "env": {
-        "NODE_ENV": "production"
+        "NODE_ENV": "production",
+        "MONGODB_URI": "@mongodb_uri",
+        "JWT_SECRET": "@jwt_secret",
+        "GITHUB_TOKEN": "@github_token",
+        "CLOUDINARY_CLOUD_NAME": "@cloudinary_cloud_name",
+        "CLOUDINARY_API_KEY": "@cloudinary_api_key",
+        "CLOUDINARY_API_SECRET": "@cloudinary_api_secret"
     }
 } 
